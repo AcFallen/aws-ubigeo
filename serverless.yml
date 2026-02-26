@@ -1,21 +1,49 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: fallen
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: ubigeo-aws
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: aws-ubigeo
 
 provider:
   name: aws
   runtime: nodejs20.x
-  # Uncomment to easily set up a custom domain. Read the docs for more details:
-  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
-  # domain: api.example.com
 
 functions:
-  hello:
-    handler: handler.hello
+
+  getDepartamentos:
+    handler: handler.getDepartamentos
+    description: Lista todos los departamentos
     events:
       - httpApi:
-          path: /
+          path: /departamentos
+          method: get
+
+  getDepartamento:
+    handler: handler.getDepartamento
+    description: Retorna un departamento con sus provincias
+    events:
+      - httpApi:
+          path: /departamentos/{code}
+          method: get
+
+  getProvincia:
+    handler: handler.getProvincia
+    description: Retorna una provincia con sus distritos
+    events:
+      - httpApi:
+          path: /provincias/{code}
+          method: get
+
+  getDistrito:
+    handler: handler.getDistrito
+    description: Retorna un distrito con su provincia y departamento
+    events:
+      - httpApi:
+          path: /distritos/{code}
+          method: get
+
+  buscar:
+    handler: handler.buscar
+    description: Búsqueda por coincidencia, retorna árbol completo
+    events:
+      - httpApi:
+          path: /buscar
           method: get
