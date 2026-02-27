@@ -5,6 +5,14 @@ service: aws-ubigeo
 provider:
   name: aws
   runtime: nodejs20.x
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - Content-Type
+      allowedMethods:
+        - GET
 
 functions:
 
